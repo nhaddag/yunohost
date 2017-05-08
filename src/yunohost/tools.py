@@ -491,7 +491,7 @@ def tools_diagnosis(auth, private=False):
         with open('/etc/debian_version', 'r') as f:
             debian_version = f.read().rstrip()
     except IOError as e:
-        logger.warning(m18n.n('diagnosis_debian_version_error', error=format(e)), exc_info=1)
+        logger.warning(m18n.n('diagnostic_debian_version_error', error=format(e)), exc_info=1)
     else:
         diagnosis['host'] = "Debian %s" % debian_version
 
@@ -500,7 +500,7 @@ def tools_diagnosis(auth, private=False):
         with open('/proc/sys/kernel/osrelease', 'r') as f:
             kernel_version = f.read().rstrip()
     except IOError as e:
-        logger.warning(m18n.n('diagnosis_kernel_version_error', error=format(e)), exc_info=1)
+        logger.warning(m18n.n('diagnostic_kernel_version_error', error=format(e)), exc_info=1)
     else:
         diagnosis['kernel'] = kernel_version
 
@@ -512,7 +512,7 @@ def tools_diagnosis(auth, private=False):
     try:
         disks = monitor_disk(units=['filesystem'], human_readable=True)
     except MoulinetteError as e:
-        logger.warning(m18n.n('diagnosis_monitor_disk_error', error=format(e)), exc_info=1)
+        logger.warning(m18n.n('diagnostic_monitor_disk_error', error=format(e)), exc_info=1)
     else:
         diagnosis['system']['disks'] = {}
         for disk in disks:
@@ -525,7 +525,7 @@ def tools_diagnosis(auth, private=False):
     try:
         system = monitor_system(units=['cpu', 'memory'], human_readable=True)
     except MoulinetteError as e:
-        logger.warning(m18n.n('diagnosis_monitor_system_error', error=format(e)), exc_info=1)
+        logger.warning(m18n.n('diagnostic_monitor_system_error', error=format(e)), exc_info=1)
     else:
         diagnosis['system']['memory'] = {
             'ram' : '%s (%s free)' % (system['memory']['ram']['total'], system['memory']['ram']['free']),
@@ -543,7 +543,7 @@ def tools_diagnosis(auth, private=False):
     try:
         applications = app_list()['apps']
     except MoulinetteError as e:
-        diagnosis['applications'] = m18n.n('diagnosis_no_apps')
+        diagnosis['applications'] = m18n.n('diagnostic_no_apps')
     else:
         diagnosis['applications'] = {}
         for application in applications:
